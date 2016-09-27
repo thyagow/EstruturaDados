@@ -44,6 +44,8 @@ class DoublyLinkedList {
                 if (!empty()) {
                     new_->next(head->next());
                     head->next()->prev(new_);
+                } else {
+                    new_->next(head);
                 }
                 head->next(new_);
                 size_++;
