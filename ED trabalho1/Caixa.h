@@ -1,7 +1,7 @@
 #ifndef CAIXA_H
-#define CAIXA_H 
+#define CAIXA_H
 
-#include <queue>
+#include "linked_queue.h"
 #include "Cliente.h"
 
 #define MAX_FILA = 10;
@@ -27,7 +27,7 @@ class Caixa {
  private:
  	int id_;
 	int getTempoCliente(Cliente c);
- 	std::queue<Cliente> fila;
+ 	structures::LinkedQueue<Cliente> fila;
  	int eficiencia_;
  	int salario_;
  	int clientes_atendidos_;

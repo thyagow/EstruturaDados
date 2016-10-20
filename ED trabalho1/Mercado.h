@@ -1,7 +1,7 @@
 #ifndef MERCADO_H
 #define MERCADO_H
 
-#include <deque>
+#include "circular_list.h"
 #include "Caixa.h"
 #include "Aleatorio.h"
 #include "Cliente.h"
@@ -21,8 +21,7 @@ class Mercado {
  	int getTempo();
  	int getClientesAtendidos();
  	int getIntervaloCliente();
- 	void insereNovoCaixa(int extra); // extra = 0 caixa normal, extra = 1 hora extra
- 	void insereNovoCaixa(int extra, int efic);
+ 	void insereNovoCaixa(int extra, int efic);  // extra = 0 caixa normal, extra = 1 hora extra
 
 
  private:
@@ -30,7 +29,7 @@ class Mercado {
  	int filaMenosProdutos();
  	int clienteEntrou(int tempo);
  	int intervalo_cliente_;
- 	std::deque<Caixa> caixas;
+ 	structures::CircularList<Caixa> caixas;
  	int tam_max_fila_;
  	int tempo_;
  	int clientes_desistentes_;

@@ -48,31 +48,30 @@ Cliente::Cliente(int tempo) {
 void Cliente::setTempoSaida(int tempo) {
     tempo_saida_ = tempo;
 }
-Cliente::getTempoEntrada() {
+int Cliente::getTempoEntrada() {
     return tempo_entrada_;
 }
-Cliente::getTempoSaida() {
+int Cliente::getTempoSaida() {
     return tempo_saida_;
 }
-Cliente::getTotalCompras() {
+int Cliente::getTotalCompras() {
     return total_compras_;
 }
-Cliente::getTotalPreco() {
+int Cliente::getTotalPreco() {
     return total_preco_;
 }
-Cliente::getTipoPagamento() {
+int Cliente::getTipoPagamento() {
     return tipo_pagamento_;
 }
-Cliente::getTipoDeFila() {
+int Cliente::getTipoDeFila() {
     return tipo_de_fila_;
 }
 
-Cliente::defineTotalValue() {
-    int value;
+int Cliente::defineTotalValue() {
+    int value = 0;
     for (int i = 0; i < total_compras_; i++) {
         value += rd->precoItem();
         // define o valor total das compras com base no numero de produtos e um preco aleatorio entre R$ 1 e R$ 90.
     }
     return value;
 }
-

@@ -1,4 +1,4 @@
-#include "aleatorio.h"
+#include "Aleatorio.h"
 #include <cstdlib>
 #include <time.h>
 
@@ -10,22 +10,22 @@ Aleatorio::~Aleatorio()
 {
     //dtor
 }
-Aleatorio::tipoDeFila() {
+int Aleatorio::tipoDeFila() {
     return (int) (rand()/2) % 2;
 }
 
-Aleatorio::tipoDePagamento() {
+int Aleatorio::tipoDePagamento() {
     return (int) (rand()/2) % 10;
 }
 
-Aleatorio::totalDeCompras() {
+int Aleatorio::totalDeCompras() {
     return 2 + ((int) (rand()/2) % 90);
 }
 
-Aleatorio::precoItem() {
+int Aleatorio::precoItem() {
     return 2 + ((int) (rand()/2) % 98);
 }
 
-Aleatorio::eficNovoCaixa() {
+int Aleatorio::eficNovoCaixa() {
     return 1 + ((int) (rand()/2) % 3);
 }

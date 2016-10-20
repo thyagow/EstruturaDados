@@ -18,9 +18,9 @@ int main() {
     void gerarManualmente();
     int infoMercado(Mercado *m);
     int infoCaixas(Mercado *m);
-    
+
     Aleatorio* al = new Aleatorio();
-    Mercado *merc;
+    Mercado* merc;
 
     std::cout << "0 - Informacoes automaticas;\n"
     << "1 - Colocar manualmente;" << std::endl;
@@ -36,10 +36,9 @@ int main() {
     for (int i = 0; i < e; i++) {
         merc->insereNovoCaixa(0, al->eficNovoCaixa());
     }
+
     while (merc->passarTempo() == 0){
     }
-
-    std::cout << "ate aqui" <<std::endl;
     infoMercado(merc);
     infoCaixas(merc);
 

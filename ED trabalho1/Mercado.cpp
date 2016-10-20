@@ -1,4 +1,4 @@
-#include <deque>
+#include "circular_list.h"
 #include "Caixa.h"
 #include "Mercado.h"
 #include "Cliente.h"
@@ -18,9 +18,9 @@ Mercado::Mercado(int intervalo_cliente, int tam_max_fila, int tempo_exec_max, in
 
 }
 Mercado::~Mercado() {
-
+    caixas.clear();
 }
-Mercado::passarTempo() {
+int Mercado::passarTempo() {
 	if (tempo_ < tempo_exec_max_) {
 		if(tempo_%intervalo_cliente_ == 0) {
 			int c = clienteEntrou(tempo_);
@@ -42,7 +42,7 @@ Mercado::passarTempo() {
 		return 1;
 	}
 }
-Mercado::getFaturamentoMedio() {
+int Mercado::getFaturamentoMedio() {
     long fat = 0;
     for (std::size_t i = 0; i < caixas.size(); i++) {
         fat += caixas.at(i).getFaturamentoTotal();
@@ -69,14 +69,14 @@ long Mercado::getFaturamentoLiquido() {
 	}
 	return fat;
 }
-Mercado::getClientesDesistentes() {
+int Mercado::getClientesDesistentes() {
 	return clientes_desistentes_;
 }
-Mercado::getPrejuizo() {
+int Mercado::getPrejuizo() {
 	return prejuizo_;
 }
 
-Mercado::getIntervaloCliente() {
+int Mercado::getIntervaloCliente() {
 	return intervalo_cliente_;
 }
 long Mercado::getCaixasInfo() {
@@ -93,26 +93,27 @@ long Mercado::getCaixasInfo() {
 	}
 	return sal;
 }
-Mercado::getTempo() {
+int Mercado::getTempo() {
 	return tempo_;
 }
-Mercado::getClientesAtendidos() {
+int Mercado::getClientesAtendidos() {
 	int cli = 0;
 	for(std::size_t i = 0; i < caixas.size(); i++) {
 		cli += caixas.at(i).getClientesAtendidos();
 	}
 	return cli;
 }
-Mercado::clienteEntrou(int tempo) {
+int Mercado::clienteEntrou(int tempo) {
 	Cliente* cliente = new Cliente(tempo);
 	int menor = menorFila();
 	int menos_produtos = filaMenosProdutos();
+
 	if (caixas.at(menos_produtos).getTamanho() > 10) {
 		menos_produtos = menor;
 	}
 	if (caixas.at(menor).getTamanho() >= 10) {
-		int prejuizo = cliente->getTotalPreco();
-		delete(cliente);
+        int prejuizo = cliente->getTotalPreco();
+		delete cliente;
 		return prejuizo;
 	} else {
 		if (cliente->getTipoDeFila() == 0) {
@@ -120,12 +121,12 @@ Mercado::clienteEntrou(int tempo) {
 		} else {
 			caixas.at(menos_produtos).inserirCliente(cliente);
 		}
-		delete(cliente);
+		delete cliente;
 	}
 	return 0;
 }
 
-Mercado::menorFila() {
+int Mercado::menorFila() {
 	int menor = 0;
 	for(std::size_t i = 0; i < caixas.size(); i++) {
 		if (caixas.at(i).getTamanho() < caixas.at(menor).getTamanho()) {
@@ -135,7 +136,7 @@ Mercado::menorFila() {
 	return menor;
 }
 
-Mercado::filaMenosProdutos() {
+int Mercado::filaMenosProdutos() {
 	int menos_produtos = 0;
 	for(std::size_t i = 0; i < caixas.size(); i++) {
 		if (caixas.at(i).getQuantidadeProdutos() < caixas.at(menos_produtos).getQuantidadeProdutos()) {
@@ -148,5 +149,5 @@ void Mercado::insereNovoCaixa(int extra, int efic) {
 	int id = caixas.size()+1;
 	int eficiencia = efic;
 	Caixa *cx = new Caixa(id, eficiencia, salario_minimo_ + (extra * 2 *salario_minimo_));
-	caixas.push_back(*cx);
+	caixas.push_front(*cx);
 }
